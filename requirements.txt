@@ -1,0 +1,3 @@
+# The backtester has no third-party dependencies (Python 3.11+).
+# ccxt is only needed for `fetch`, `paper` and `live`.
+ccxt>=4.0

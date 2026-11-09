@@ -1,0 +1,34 @@
+# Copy to config.toml and adjust. API keys never go in this file:
+# set EXCHANGE_API_KEY / EXCHANGE_API_SECRET (and EXCHANGE_API_PASSWORD if
+# your exchange needs one) in the environment instead.
+
+[bot]
+symbol = "BTC/USDT"
+timeframe = "1h"        # 1m 5m 15m 30m 1h 4h 1d
+exchange = "binance"    # any ccxt exchange id
+sandbox = true          # use the exchange testnet for `live`; set false only when you mean it
+poll_seconds = 30
+journal = "trades.csv"
+
+[strategy]
+name = "sma_crossover"  # or "rsi_mean_reversion"
+
+[strategy.params]
+fast = 20
+slow = 50
+use_ema = false
+# For rsi_mean_reversion: period = 14, oversold = 30, overbought = 70, trend_sma = 200
+
+[risk]
+risk_per_trade = 0.01      # lose at most 1% of equity if the stop is hit
+atr_period = 14
+atr_stop_mult = 2.0        # stop = entry - 2 x ATR
+take_profit_r = 0.0        # e.g. 2.0 = take profit at 2x the stop distance; 0 = off
+max_position_pct = 0.25    # never put more than 25% of equity in one position
+max_daily_loss_pct = 0.03  # no new entries after -3% in a UTC day
+max_drawdown_pct = 0.20    # flatten and stop trading after -20% from peak
+
+[paper]
+starting_cash = 10000
+fee_rate = 0.001           # 0.1% per side
+slippage_bps = 5
